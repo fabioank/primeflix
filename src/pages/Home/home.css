@@ -38,7 +38,12 @@
     color: #fff;
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
+}
 
-
+.loading{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 14px;
 }
 
