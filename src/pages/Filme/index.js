@@ -1,14 +1,14 @@
 import './filme-info.css';
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import api from '../../services/api';
 import { isLabelWithInternallyDisabledControl } from "@testing-library/user-event/dist/utils";
-
 function Filme(){
 
     const { id } = useParams();
     const [filme, setFilme] = useState({});
     const [loading, setLoading] = useState(true);
+    const navigation = useNavigate();
 
     useEffect(() => {
         async function loadFilme(){
@@ -24,15 +24,13 @@ function Filme(){
             })
             .catch(() =>{
                 console.log("Filme não encontrado");
+                navigation("/", { replace: true});
+                return;
             })
         }
 
         loadFilme();
-
-        return () => {
-            console.log("O componente foi desmontado");
-        }
-    }, []);
+    }, [navigation, id]);
 
     if(loading){
         return(
@@ -45,14 +43,19 @@ function Filme(){
     return(
         <div className="filme-info">
             <h1>{filme.title}</h1>
+
             <img src={`https://image.tmdb.org/t/p/original/${filme.backdrop_path}`} alt={filme.title}></img>
+            
             <h3>Sinopse</h3>
+           
             <span>{filme.overview}</span><br/>
+           
             <strong>Avaliação: {filme.vote_average.toFixed(1)}/10</strong>
+           
             <div className='area-buttons'>
                 <button>Salvar</button>
                 <button>
-                    <a href='#'>
+                    <a target="_blank" rel='external' href={`https://youtube.com/results?search_query=${filme.title} trailer`}>
                         Trailer
                     </a>
                 </button>
