@@ -1,3 +1,4 @@
+import './filme-info.css';
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import api from '../../services/api';
@@ -47,7 +48,15 @@ function Filme(){
             <img src={`https://image.tmdb.org/t/p/original/${filme.backdrop_path}`} alt={filme.title}></img>
             <h3>Sinopse</h3>
             <span>{filme.overview}</span><br/>
-            <strong>Avaliação: {filme.vote_average}/10</strong>
+            <strong>Avaliação: {filme.vote_average.toFixed(1)}/10</strong>
+            <div className='area-buttons'>
+                <button>Salvar</button>
+                <button>
+                    <a href='#'>
+                        Trailer
+                    </a>
+                </button>
+            </div>
         </div>
     )
 
