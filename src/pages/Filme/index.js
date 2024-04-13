@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate, json } from "react-router-dom";
 import api from '../../services/api';
 import { isLabelWithInternallyDisabledControl } from "@testing-library/user-event/dist/utils";
+import { toast } from 'react-toastify';
+
 function Filme(){
 
     const { id } = useParams();
@@ -38,13 +40,13 @@ function Filme(){
         const hasFilme = filmesSalvos.some((filmesSalvo)=> filmesSalvo.id === filme.id );
 
         if(hasFilme){
-            alert("Esse filme ja foi adicionado na lista");
+            toast.warn("Esse filme já foi adicionado na lista");
             return;
         }else
 
         filmesSalvos.push(filme);
         localStorage.setItem("@primeFlix", JSON.stringify(filmesSalvos));
-        alert("Filme salvo com sucesso!");
+        toast.success("Filme salvo com sucesso!");
     }
 
     if(loading){
